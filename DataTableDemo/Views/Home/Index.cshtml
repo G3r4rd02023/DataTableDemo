@@ -1,0 +1,77 @@
+﻿@model IEnumerable<DataTableDemo.Models.Contacto>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+@section Estilos{
+    <link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet"/>
+    <link href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" rel=" stylesheet" />
+    <style>
+        .btn-exportar-excel{
+            background-color:#198754 !important;
+            color:white !important;
+        }
+    </style>
+}
+<div class =" col-md-12">
+    <div class="card">
+        <div class=" card-header text-success text-center">
+            <h4>Lista de contactos</h4>
+        </div>
+        <div class=" card-body">
+            <table id="contacto" class="table table-hover table responsive table stripped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Telefono</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Direccion</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">@item.Id</th>
+                            <td> @Html.DisplayFor(modelItem => item.Nombre)</td>
+                            <td> @Html.DisplayFor(modelItem => item.Telefono)</td>
+                            <td> @Html.DisplayFor(modelItem => item.Correo)</td>
+                            <td> @Html.DisplayFor(modelItem => item.Direccion)</td>
+                            <td></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#contacto').DataTable(
+                {
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+                    },                   
+                    dom:"Bfrtip",
+                    buttons:[
+                       'excel','pdf','print','pageLength'
+                    ],
+                });
+        });
+    </script>
+}
